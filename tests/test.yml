@@ -1,0 +1,58 @@
+config:
+  target: 'http://localhost:8010'
+  phases:
+    - duration: 45
+      arrivalRate: 200
+  variables:
+    longitude:
+      - "102"
+      - "50"
+      - "76"
+      - "21"
+      - "110"
+    latitude:
+      - "25"
+      - "76"
+      - "87"
+      - "54"
+      - "20"
+    name:
+      - "Adi"
+      - "Budi"
+      - "Cecep"
+      - "Doddy"
+      - "Eman"
+      - "Febri"
+      - "Giant"
+      - "Handoko"
+    vehicle:
+      - "Civic"
+      - "Lexus"
+      - "Altis"
+      - "Lancer"
+    id:
+      - "1"
+      - "5"
+      - "15"
+      - "20"
+      - "25"
+  ensure:
+    p99: 50
+
+scenarios:
+  - flow:
+    - post:
+        url: "/rides"
+        json:
+          start_lat: "{{ latitude }}"
+          start_long: "{{ longitude }}"
+          end_lat: "{{ latitude }}"
+          end_long: "{{ longitude }}"
+          rider_name: "{{ name }}"
+          driver_name: "{{ name }}"
+          driver_vehicle: "{{ vehicle }}"
+    - get:
+        url: "/rides"
+  - flow:
+    - get:
+        url: "/rides/{{ id }}"

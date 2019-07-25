@@ -1,0 +1,74 @@
+{
+  "name": "backend-coding-test",
+  "version": "1.0.0",
+  "description": "A coding assessment for Xendit backend interviews",
+  "apidoc": {
+    "title": "A coding assessment API documentation.",
+    "url": "https://localhost:8010"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2018
+    },
+    "plugins": [
+      "security"
+    ],
+    "extends": [
+      "plugin:security/recommended",
+      "eslint:recommended"
+    ],
+    "rules": {
+      "semi": [
+        "error",
+        "always"
+      ],
+      "quotes": [
+        "error",
+        "double"
+      ]
+    }
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "lint": "eslint ./src --fix",
+    "test": "npm run lint & nyc mocha tests",
+    "test:load": "forever start index.js & artillery run tests/test.yml & forever stop 0",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "Xendit"
+  ],
+  "pre-push": [
+    "test"
+  ],
+  "author": "Bo",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.16.4",
+    "helmet": "^3.19.0",
+    "sqlite3": "^4.0.6",
+    "winston": "^3.2.1",
+    "nyc": "^14.1.1",
+    "apidoc": "^0.17.7"
+  },
+  "devDependencies": {
+
+    "artillery": "^1.6.0-28",
+    "chai": "^4.2.0",
+    "eslint": "^6.0.1",
+    "eslint-plugin-security": "^1.4.0",
+    "forever": "^1.0.0",
+    "mocha": "^6.1.4",
+    "pre-push": "^0.1.1",
+    "supertest": "^4.0.2"
+  }
+}
